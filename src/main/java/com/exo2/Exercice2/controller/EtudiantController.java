@@ -1,9 +1,10 @@
 package com.exo2.Exercice2.controller;
 
 import com.exo2.Exercice2.dto.EtudiantDto;
-import com.exo2.Exercice2.entity.Etudiant;
 import com.exo2.Exercice2.service.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +18,10 @@ public class EtudiantController {
     private EtudiantService etudiantService;
 
     @GetMapping
-    public ResponseEntity<List<EtudiantDto>> findAll()
+    public ResponseEntity<List<EtudiantDto>> findAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size)
     {
-        return ResponseEntity.ok(etudiantService.findAll());
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(etudiantService.findAll(pageable));
     }
 
     @GetMapping("/{id}")

@@ -5,6 +5,7 @@ import com.exo2.Exercice2.entity.Adresse;
 import com.exo2.Exercice2.mapper.AdresseMapper;
 import com.exo2.Exercice2.repository.AdresseRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,9 +16,9 @@ public class AdresseService {
     private AdresseRepository adresseRepository;
     private AdresseMapper adresseMapper;
 
-    public List<AdresseDto> findAll()
+    public List<AdresseDto> findAll(Pageable pageable)
     {
-        return adresseMapper.toDtos(adresseRepository.findAll());
+        return adresseRepository.findAll(pageable).map(adresseMapper::toDto).getContent();
     }
 
     public AdresseDto findById(Long id)

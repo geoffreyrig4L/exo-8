@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.exo2</groupId>
-	<artifactId>Exercice2</artifactId>
+	<artifactId>exo-8</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Exercice2</name>
 	<description>Spring boot jpa</description>

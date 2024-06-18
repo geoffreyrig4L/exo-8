@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.BatchSize;
 
 import java.util.List;
 
@@ -22,6 +23,12 @@ public class Projet {
     private String nomProjet;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "etudiant_projet", joinColumns = @JoinColumn(name = "projet_id"), inverseJoinColumns = @JoinColumn(name = "etudiant_id"))
+    @JoinTable(
+            name = "etudiant_projet",
+            joinColumns = @JoinColumn(name = "projet_id"),
+            inverseJoinColumns = @JoinColumn(name = "etudiant_id"),
+            indexes = @Index(name = "idx_etudiants", columnList = "etudiant_id")
+    )
+    @BatchSize(size = 10)
     private List<Etudiant> etudiants;
 }
